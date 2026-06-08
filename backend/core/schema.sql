@@ -63,7 +63,6 @@ CREATE TABLE iot_readings (
   created_at    TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Indexes for common queries
 CREATE INDEX idx_waste_logs_cafeteria ON waste_logs(cafeteria_id);
 CREATE INDEX idx_waste_logs_created   ON waste_logs(created_at DESC);
 CREATE INDEX idx_waste_logs_meal      ON waste_logs(meal_id);

@@ -9,7 +9,7 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD:-campuseats_dev}
     volumes:
       - pg_data:/var/lib/postgresql/data
-      - ./backend/src/config/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      - ./backend/core/schema.sql:/docker-entrypoint-initdb.d/schema.sql
     ports:
       - "5432:5432"
     healthcheck:
@@ -36,14 +36,13 @@ services:
     ports:
       - "3001:3001"
     environment:
-      NODE_ENV: development
-      PORT: 3001
       DB_HOST: postgres
       DB_NAME: campuseats
       DB_USER: postgres
       DB_PASSWORD: ${DB_PASSWORD:-campuseats_dev}
       REDIS_URL: redis://redis:6379
-      MQTT_BROKER: mqtt://mosquitto:1883
+      MQTT_BROKER_HOST: mosquitto
+      MQTT_BROKER_PORT: 1883
       JWT_SECRET: ${JWT_SECRET:-change_me_in_production}
       FRONTEND_URL: http://localhost:3000
     depends_on:

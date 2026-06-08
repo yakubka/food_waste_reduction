@@ -22,7 +22,7 @@ University cafeterias generate significant food waste every day — with little 
 |-------|-----------|
 | Frontend (Web) | React.js, Tailwind CSS |
 | Frontend (Mobile) | React Native (iOS & Android) |
-| Backend / API | Node.js, Express, REST |
+| Backend / API | Python, FastAPI, asyncpg |
 | Database | PostgreSQL, Redis |
 | IoT Integration | MQTT, Raspberry Pi (smart scales) |
 | ML / Analytics | Python, scikit-learn, FastAPI |
@@ -67,10 +67,12 @@ docker compose up --build
 
 ```bash
 cd backend
-npm install
+pip install -r requirements.txt
 cp ../.env.example .env
-npm run dev
+uvicorn main:app --reload --port 3001
 ```
+
+Interactive API docs available at **http://localhost:3001/api/docs**
 
 ### Local Frontend Development
 
