@@ -22,9 +22,9 @@ University cafeterias generate significant food waste every day — with little 
 |-------|-----------|
 | Frontend (Web) | React.js, Tailwind CSS |
 | Frontend (Mobile) | React Native (iOS & Android) |
-| Backend / API | Python, FastAPI, asyncpg |
+| Backend / API | Python 3.11, FastAPI, asyncpg |
 | Database | PostgreSQL, Redis |
-| IoT Integration | MQTT, Raspberry Pi (smart scales) |
+| IoT Integration | MQTT (aiomqtt), Raspberry Pi smart scales |
 | ML / Analytics | Python, scikit-learn, FastAPI |
 | Cloud / DevOps | AWS (EC2, S3), Docker, GitHub Actions |
 
@@ -38,17 +38,18 @@ University cafeterias generate significant food waste every day — with little 
 - **🔔 Smart Alerts** — anomaly detection triggers automatic alerts for waste spikes
 - **📈 Analytics** — weekly trends, peak hours heatmap, top-wasted meals breakdown
 - **🔐 Role-Based Access** — Admin / Manager / Staff roles with JWT authentication
+- **📖 Auto API Docs** — interactive Swagger UI generated automatically by FastAPI
 
 ---
 
 ## 🚀 Quick Start
 
 ### Prerequisites
+- Python 3.11+ (backend + ML)
+- Node.js 20+ (frontend only)
 - Docker & Docker Compose
-- Node.js 20+ (for local dev)
-- Python 3.11+ (for ML service)
 
-### Run with Docker
+### Run with Docker (recommended)
 
 ```bash
 git clone https://github.com/yakubka/food_waste_reduction.git
@@ -61,6 +62,7 @@ docker compose up --build
 |---------|-----|
 | Web Dashboard | http://localhost:3000 |
 | API | http://localhost:3001 |
+| API Docs (Swagger) | http://localhost:3001/api/docs |
 | ML Service | http://localhost:8000/docs |
 
 ### Local Backend Development
@@ -72,7 +74,8 @@ cp ../.env.example .env
 uvicorn main:app --reload --port 3001
 ```
 
-Interactive API docs available at **http://localhost:3001/api/docs**
+Interactive Swagger UI → **http://localhost:3001/api/docs**
+ReDoc → **http://localhost:3001/api/redoc**
 
 ### Local Frontend Development
 
@@ -87,8 +90,8 @@ npm start
 ```bash
 cd ml
 pip install -r requirements.txt
-python train.py          # trains on DB data
-uvicorn predict_api:app --port 8000   # serves predictions
+python train.py                          # train on historical DB data
+uvicorn predict_api:app --port 8000      # serve predictions
 ```
 
 ---
@@ -96,24 +99,39 @@ uvicorn predict_api:app --port 8000   # serves predictions
 ## 📁 Project Structure
 
 ```
-campuseats/
+food_waste_reduction/
 ├── backend/
-│   └── src/
-│       ├── routes/          # auth, waste, meals, analytics, alerts
-│       ├── middleware/       # JWT auth, error handler
-│       ├── config/          # DB, logger, SQL schema
-│       └── services/        # MQTT IoT ingestion
+│   ├── main.py              # FastAPI app, lifespan, CORS, error handling
+│   ├── requirements.txt
+│   ├── Dockerfile
+│   ├── core/
+│   │   ├── config.py        # Settings via pydantic-settings
+│   │   ├── database.py      # asyncpg connection pool
+│   │   ├── security.py      # JWT + bcrypt helpers
+│   │   └── schema.sql       # PostgreSQL schema
+│   ├── models/
+│   │   └── schemas.py       # Pydantic v2 request/response models
+│   ├── routers/
+│   │   ├── auth.py          # POST /api/auth/login|register
+│   │   ├── waste.py         # GET/POST /api/waste
+│   │   ├── meals.py         # GET/POST /api/meals
+│   │   ├── analytics.py     # GET /api/analytics/*
+│   │   └── alerts.py        # GET/PATCH /api/alerts
+│   └── services/
+│       └── mqtt_service.py  # Async MQTT listener (aiomqtt)
 ├── frontend/
 │   └── src/
 │       ├── pages/           # Dashboard, WasteLogs, Analytics, Meals, Alerts, Login
 │       ├── components/      # Layout, shared UI
-│       └── services/        # API client, Zustand auth store
+│       └── services/        # Axios API client, Zustand auth store
 ├── ml/
 │   ├── train.py             # Random Forest training script
-│   └── predict_api.py       # FastAPI prediction endpoint
+│   ├── predict_api.py       # FastAPI prediction endpoint
+│   └── requirements.txt
 ├── docs/
-│   └── system_diagram.svg   # Architecture diagram
-├── .github/workflows/ci.yml # CI/CD pipeline
+│   ├── system_diagram.svg   # Architecture diagram
+│   └── api.md               # Full API reference
+├── .github/workflows/ci.yml # CI/CD — pytest + React tests + Docker build
 └── docker-compose.yml
 ```
 
@@ -121,30 +139,37 @@ campuseats/
 
 ## 🔌 API Reference
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/auth/login` | Authenticate user |
-| POST | `/api/auth/register` | Register new user |
-| GET | `/api/waste` | List waste logs |
-| POST | `/api/waste` | Log a waste entry |
-| GET | `/api/waste/summary/daily` | Daily waste summary |
-| GET | `/api/meals` | List meals |
-| GET | `/api/analytics/overview` | 30-day stats |
-| GET | `/api/analytics/demand-forecast` | 7-day ML forecast |
-| GET | `/api/alerts` | Get alerts |
+Full documentation: [docs/api.md](docs/api.md) | Interactive: `/api/docs`
+
+| Method | Endpoint | Auth | Description |
+|--------|----------|------|-------------|
+| POST | `/api/auth/register` | — | Register new user |
+| POST | `/api/auth/login` | — | Login, get JWT token |
+| GET | `/api/waste` | ✅ | List waste logs |
+| POST | `/api/waste` | ✅ | Log a waste entry |
+| GET | `/api/waste/summary/daily` | ✅ | Daily waste summary (30d) |
+| GET | `/api/meals` | ✅ | List meals |
+| POST | `/api/meals` | admin/manager | Create meal |
+| GET | `/api/meals/{id}/waste-trend` | ✅ | Waste trend for a meal |
+| GET | `/api/analytics/overview` | ✅ | 30-day stats overview |
+| GET | `/api/analytics/demand-forecast` | ✅ | 7-day ML demand forecast |
+| GET | `/api/analytics/reduction` | ✅ | Weekly reduction trend |
+| GET | `/api/alerts` | ✅ | List alerts |
+| PATCH | `/api/alerts/{id}/read` | ✅ | Mark alert as read |
+| GET | `/health` | — | Health check |
 
 ---
 
 ## 🧪 Testing
 
 ```bash
-# Backend tests
-cd backend && npm test
+# Backend (pytest)
+cd backend && pytest tests/ -v
 
-# Frontend tests
+# Frontend
 cd frontend && npm test
 
-# ML tests
+# ML
 cd ml && pytest tests/ -v
 ```
 
@@ -156,9 +181,9 @@ cd ml && pytest tests/ -v
 |-------|-------|-------------|
 | Research & Requirements | 1–2 | Interviews, stack finalization |
 | System Design | 3–4 | Architecture, DB schema, wireframes |
-| Core Development | 5–8 | Backend API, DB, IoT, Mobile app |
+| Core Development | 5–8 | FastAPI backend, DB, IoT, React frontend |
 | ML / Analytics | 9–10 | Demand prediction, anomaly detection |
-| Testing & Deployment | 11–12 | UAT, pilot rollout, AWS deployment |
+| Testing & Deployment | 11–12 | pytest, UAT, pilot rollout, AWS deployment |
 
 ---
 

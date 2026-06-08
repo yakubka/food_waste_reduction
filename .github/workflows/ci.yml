@@ -38,6 +38,7 @@ jobs:
           JWT_SECRET: test_secret
 
   test-frontend:
+    # Frontend is React.js — Node.js required only here
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
