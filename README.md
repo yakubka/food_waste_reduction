@@ -51,8 +51,8 @@ University cafeterias generate significant food waste every day — with little 
 ### Run with Docker
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/campuseats.git
-cd campuseats
+git clone https://github.com/yakubka/food_waste_reduction.git
+cd food_waste_reduction
 cp .env.example .env   # edit values
 docker compose up --build
 ```
