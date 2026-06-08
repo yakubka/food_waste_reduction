@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 580" font-family="'Segoe UI', Arial, sans-serif">
+  <!-- Background -->
+  <rect width="900" height="580" fill="#f8faf8" rx="12"/>
+
+  <!-- Title -->
+  <text x="450" y="38" font-size="22" font-weight="700" fill="#1a3c2e" text-anchor="middle">CampusEats — System Architecture</text>
+  <text x="450" y="58" font-size="13" fill="#666" text-anchor="middle">Smart Campus Food Waste Reduction Platform</text>
+
+  <!-- LAYER 1: Frontend -->
+  <rect x="30" y="80" width="840" height="90" rx="10" fill="#e8f5e9" stroke="#4caf82" stroke-width="2"/>
+  <text x="450" y="98" font-size="13" font-weight="700" fill="#2e7d52" text-anchor="middle">FRONTEND LAYER</text>
+
+  <!-- Web Dashboard -->
+  <rect x="80" y="106" width="160" height="52" rx="8" fill="#fff" stroke="#4caf82" stroke-width="1.5"/>
+  <text x="160" y="127" font-size="12" font-weight="600" fill="#1a3c2e" text-anchor="middle">🖥️ Web Dashboard</text>
+  <text x="160" y="145" font-size="10" fill="#666" text-anchor="middle">React.js + Tailwind CSS</text>
+
+  <!-- Mobile App -->
+  <rect x="270" y="106" width="160" height="52" rx="8" fill="#fff" stroke="#4caf82" stroke-width="1.5"/>
+  <text x="350" y="127" font-size="12" font-weight="600" fill="#1a3c2e" text-anchor="middle">📱 Mobile App</text>
+  <text x="350" y="145" font-size="10" fill="#666" text-anchor="middle">React Native (iOS/Android)</text>
+
+  <!-- Admin Panel -->
+  <rect x="460" y="106" width="160" height="52" rx="8" fill="#fff" stroke="#4caf82" stroke-width="1.5"/>
+  <text x="540" y="127" font-size="12" font-weight="600" fill="#1a3c2e" text-anchor="middle">⚙️ Admin Panel</text>
+  <text x="540" y="145" font-size="10" fill="#666" text-anchor="middle">React.js + Charts</text>
+
+  <!-- IoT Scale -->
+  <rect x="650" y="106" width="160" height="52" rx="8" fill="#fff3e0" stroke="#e57c2e" stroke-width="1.5"/>
+  <text x="730" y="127" font-size="12" font-weight="600" fill="#c66b1e" text-anchor="middle">⚖️ IoT Smart Scale</text>
+  <text x="730" y="145" font-size="10" fill="#666" text-anchor="middle">Raspberry Pi + MQTT</text>
+
+  <!-- Arrow 1 → 2 -->
+  <line x1="450" y1="170" x2="450" y2="195" stroke="#4caf82" stroke-width="2" marker-end="url(#arrow-green)"/>
+  <line x1="730" y1="158" x2="730" y2="185" stroke="#e57c2e" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arrow-orange)"/>
+
+  <!-- LAYER 2: API Gateway -->
+  <rect x="100" y="195" width="560" height="55" rx="10" fill="#e3f0e8" stroke="#2e6649" stroke-width="2"/>
+  <text x="380" y="215" font-size="13" font-weight="700" fill="#1a3c2e" text-anchor="middle">🔀 API GATEWAY</text>
+  <text x="380" y="235" font-size="11" fill="#444" text-anchor="middle">REST / WebSocket  |  Rate Limiting  |  JWT Auth (OAuth2)</text>
+
+  <!-- MQTT -->
+  <rect x="680" y="200" width="160" height="45" rx="8" fill="#fff3e0" stroke="#e57c2e" stroke-width="1.5"/>
+  <text x="760" y="220" font-size="12" font-weight="600" fill="#c66b1e" text-anchor="middle">📡 MQTT Broker</text>
+  <text x="760" y="235" font-size="10" fill="#666" text-anchor="middle">Eclipse Mosquitto</text>
+
+  <!-- Arrow 2 → 3 -->
+  <line x1="380" y1="250" x2="380" y2="280" stroke="#2e6649" stroke-width="2" marker-end="url(#arrow-green)"/>
+  <line x1="760" y1="245" x2="760" y2="275" stroke="#e57c2e" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arrow-orange)"/>
+
+  <!-- LAYER 3: Services -->
+  <rect x="30" y="280" width="840" height="100" rx="10" fill="#e8f0ff" stroke="#5b8dd9" stroke-width="2"/>
+  <text x="450" y="298" font-size="13" font-weight="700" fill="#2c4d8a" text-anchor="middle">SERVICES LAYER</text>
+
+  <rect x="50" y="308" width="140" height="58" rx="8" fill="#fff" stroke="#5b8dd9" stroke-width="1.5"/>
+  <text x="120" y="330" font-size="12" font-weight="600" fill="#1a3c2e" text-anchor="middle">🔐 Auth Service</text>
+  <text x="120" y="348" font-size="10" fill="#666" text-anchor="middle">JWT / bcrypt</text>
+  <text x="120" y="362" font-size="10" fill="#666" text-anchor="middle">Node.js/Express</text>
+
+  <rect x="210" y="308" width="140" height="58" rx="8" fill="#fff" stroke="#5b8dd9" stroke-width="1.5"/>
+  <text x="280" y="330" font-size="12" font-weight="600" fill="#1a3c2e" text-anchor="middle">🗑️ Waste Tracker</text>
+  <text x="280" y="348" font-size="10" fill="#666" text-anchor="middle">Core business logic</text>
+  <text x="280" y="362" font-size="10" fill="#666" text-anchor="middle">IoT ingestion</text>
+
+  <rect x="370" y="308" width="140" height="58" rx="8" fill="#fff" stroke="#5b8dd9" stroke-width="1.5"/>
+  <text x="440" y="330" font-size="12" font-weight="600" fill="#1a3c2e" text-anchor="middle">🤖 ML Analytics</text>
+  <text x="440" y="348" font-size="10" fill="#666" text-anchor="middle">Demand prediction</text>
+  <text x="440" y="362" font-size="10" fill="#666" text-anchor="middle">scikit-learn / FastAPI</text>
+
+  <rect x="530" y="308" width="140" height="58" rx="8" fill="#fff" stroke="#5b8dd9" stroke-width="1.5"/>
+  <text x="600" y="330" font-size="12" font-weight="600" fill="#1a3c2e" text-anchor="middle">🔔 Notifier</text>
+  <text x="600" y="348" font-size="10" fill="#666" text-anchor="middle">Push notifications</text>
+  <text x="600" y="362" font-size="10" fill="#666" text-anchor="middle">Email alerts</text>
+
+  <rect x="690" y="308" width="160" height="58" rx="8" fill="#fff3e0" stroke="#e57c2e" stroke-width="1.5"/>
+  <text x="770" y="330" font-size="12" font-weight="600" fill="#c66b1e" text-anchor="middle">⚖️ Scale Ingestor</text>
+  <text x="770" y="348" font-size="10" fill="#666" text-anchor="middle">MQTT subscriber</text>
+  <text x="770" y="362" font-size="10" fill="#666" text-anchor="middle">Anomaly detection</text>
+
+  <!-- Arrow 3 → 4 -->
+  <line x1="380" y1="380" x2="380" y2="408" stroke="#5b8dd9" stroke-width="2" marker-end="url(#arrow-blue)"/>
+
+  <!-- LAYER 4: Data -->
+  <rect x="30" y="408" width="840" height="100" rx="10" fill="#fce4ec" stroke="#e91e63" stroke-width="2"/>
+  <text x="450" y="426" font-size="13" font-weight="700" fill="#880e4f" text-anchor="middle">DATA LAYER</text>
+
+  <rect x="60" y="438" width="200" height="58" rx="8" fill="#fff" stroke="#e91e63" stroke-width="1.5"/>
+  <text x="160" y="462" font-size="12" font-weight="600" fill="#1a3c2e" text-anchor="middle">🐘 PostgreSQL</text>
+  <text x="160" y="478" font-size="10" fill="#666" text-anchor="middle">Primary datastore</text>
+  <text x="160" y="492" font-size="10" fill="#666" text-anchor="middle">Users, Meals, Waste Logs</text>
+
+  <rect x="285" y="438" width="200" height="58" rx="8" fill="#fff" stroke="#e91e63" stroke-width="1.5"/>
+  <text x="385" y="462" font-size="12" font-weight="600" fill="#1a3c2e" text-anchor="middle">⚡ Redis</text>
+  <text x="385" y="478" font-size="10" fill="#666" text-anchor="middle">Session cache</text>
+  <text x="385" y="492" font-size="10" fill="#666" text-anchor="middle">Real-time counters</text>
+
+  <rect x="510" y="438" width="200" height="58" rx="8" fill="#fff" stroke="#e91e63" stroke-width="1.5"/>
+  <text x="610" y="462" font-size="12" font-weight="600" fill="#1a3c2e" text-anchor="middle">☁️ AWS S3</text>
+  <text x="610" y="478" font-size="10" fill="#666" text-anchor="middle">Report storage</text>
+  <text x="610" y="492" font-size="10" fill="#666" text-anchor="middle">Logs &amp; exports</text>
+
+  <rect x="730" y="438" width="120" height="58" rx="8" fill="#fff" stroke="#e91e63" stroke-width="1.5"/>
+  <text x="790" y="462" font-size="12" font-weight="600" fill="#1a3c2e" text-anchor="middle">🐳 Docker</text>
+  <text x="790" y="478" font-size="10" fill="#666" text-anchor="middle">AWS EC2</text>
+  <text x="790" y="492" font-size="10" fill="#666" text-anchor="middle">GitHub Actions</text>
+
+  <!-- Legend -->
+  <rect x="30" y="525" width="840" height="42" rx="8" fill="#fff" stroke="#ddd" stroke-width="1"/>
+  <text x="60" y="545" font-size="11" fill="#444" font-weight="600">Legend:</text>
+  <rect x="110" y="533" width="14" height="14" rx="3" fill="#4caf82"/>
+  <text x="130" y="545" font-size="11" fill="#444">Frontend</text>
+  <rect x="210" y="533" width="14" height="14" rx="3" fill="#5b8dd9"/>
+  <text x="230" y="545" font-size="11" fill="#444">Services</text>
+  <rect x="310" y="533" width="14" height="14" rx="3" fill="#e91e63"/>
+  <text x="330" y="545" font-size="11" fill="#444">Data</text>
+  <rect x="390" y="533" width="14" height="14" rx="3" fill="#e57c2e"/>
+  <text x="410" y="545" font-size="11" fill="#444">IoT / MQTT</text>
+  <line x1="510" y1="540" x2="540" y2="540" stroke="#e57c2e" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="550" y="545" font-size="11" fill="#444">MQTT data stream</text>
+  <text x="720" y="545" font-size="11" fill="#888">CampusEats v1.0 — Spring 2026</text>
+
+  <!-- Arrow markers -->
+  <defs>
+    <marker id="arrow-green" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#4caf82"/>
+    </marker>
+    <marker id="arrow-blue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#5b8dd9"/>
+    </marker>
+    <marker id="arrow-orange" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#e57c2e"/>
+    </marker>
+  </defs>
+</svg>
